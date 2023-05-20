@@ -51,7 +51,7 @@ async function run() {
         })
 
 
-
+        // toy category
         app.get('/toys/:category', async (req, res) => {
             const category = req.params.category;
             const filter = { category: category }
@@ -61,6 +61,7 @@ async function run() {
         })
 
 
+        // toy details
         app.get('/toysDetails/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -69,7 +70,8 @@ async function run() {
         })
 
 
-        app.get('/myToys/:email', async (req, res) => {
+        // my toy
+        app.get('/my-toys/:email', async (req, res) => {
             const email = req.params;
             const result = await toyCollection.find(email).toArray();
             res.send(result);
@@ -83,6 +85,12 @@ async function run() {
             const result = await toyCollection.deleteOne(filter);
             res.send(result);
         })
+
+
+        //update
+        app.patch('/update-toy', async(req, res) =>{
+            
+        }) 
 
 
 
