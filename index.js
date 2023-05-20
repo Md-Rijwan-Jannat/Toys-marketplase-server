@@ -88,9 +88,23 @@ async function run() {
 
 
         //update
-        app.patch('/update-toy', async(req, res) =>{
-            
-        }) 
+        app.patch('/update-toy/:id', async (req, res) => {
+            const id = req.params.id;
+            const toyInfo = req.body;
+            console.log('client side:-', body);
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    price: toyInfo.price,
+                    quantity: toyInfo.quantity,
+                    description: toyInfo.description
+                },
+            };
+            const result = await toyCollection.updateOne(filter, updateDoc,options);
+            res.send(result);
+
+        })
 
 
 
