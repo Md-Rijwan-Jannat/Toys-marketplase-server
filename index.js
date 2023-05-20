@@ -27,6 +27,7 @@ const client = new MongoClient(uri, {
 });
 
 const toyCollection = client.db('toysDB').collection('toys');
+const reviewsCollection = client.db('customer-reviews').collection('reviews')
 
 async function run() {
     try {
@@ -91,7 +92,7 @@ async function run() {
         app.patch('/update-toy/:id', async (req, res) => {
             const id = req.params.id;
             const toyInfo = req.body;
-            console.log('client side:-', body);
+            console.log('client side:-', toyInfo);
             const filter = { _id: new ObjectId(id) };
             const options = { upsert: true };
             const updateDoc = {
@@ -101,9 +102,15 @@ async function run() {
                     description: toyInfo.description
                 },
             };
-            const result = await toyCollection.updateOne(filter, updateDoc,options);
+            const result = await toyCollection.updateOne(filter, updateDoc, options);
             res.send(result);
 
+        })
+
+        // customer reviews
+        app.get('/customer', async (req, res) => {
+            const result = await reviewsCollection.find().toArray();
+            res.send(result);
         })
 
 
