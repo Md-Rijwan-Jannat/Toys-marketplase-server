@@ -32,7 +32,7 @@ const reviewsCollection = client.db('customer-reviews').collection('reviews')
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+         client.connect();
 
 
 
